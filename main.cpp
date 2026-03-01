@@ -19,7 +19,10 @@ int main() {
 
     char c;
     while (true) {
-        cout << tr << "1. Insert\n2. Erase\n3. Quit\n> ";
+        for (std::string &i : tr) {
+            cout << i << ' ';
+        }
+        cout << '\n' << tr << "1. Insert\n2. Erase\n3. Quit\n> ";
         cin >> c;
         switch (c) {
         case '1': {

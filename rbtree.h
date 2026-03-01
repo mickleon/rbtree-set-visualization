@@ -29,9 +29,19 @@ public:
         Node(const T value);
     };
 
+    struct Iterator {
+        Node *node;
+
+        T &operator*();
+        bool operator!=(const Iterator &other) const;
+        Iterator &operator++();
+    };
+
+    Iterator begin() const;
+    Iterator end() const;
+
     void insert(const T value);
     void erase(const T value);
-    Node *find(const T value) const;
     T max() const;
     T min() const;
     void clear();
@@ -67,6 +77,8 @@ template<typename T>
 using Node = typename RBTree<T>::Node;
 template<typename T>
 using Color = typename Node<T>::Color;
+template<typename T>
+using Iterator = typename RBTree<T>::Iterator;
 
 template<typename T>
 RBTree<T>::Node::Node() {
@@ -80,6 +92,41 @@ RBTree<T>::Node::Node(const T value) {
     inf = value;
     left = right = parent = nullptr;
     color = RED;
+}
+
+template<typename T>
+T &RBTree<T>::Iterator::operator*() {
+    return this->node->inf;
+}
+
+template<typename T>
+typename RBTree<T>::Iterator &RBTree<T>::Iterator::operator++() {
+    if (this->node->right != nullptr) {
+        this->node = RBTree<T>::min(node->right);
+        return *this;
+    }
+    Node *temp = this->node->parent;
+    while (temp != nullptr && this->node == temp->right) {
+        this->node = temp;
+        temp = temp->parent;
+    }
+    this->node = temp;
+    return *this;
+}
+
+template<typename T>
+bool RBTree<T>::Iterator::operator!=(const Iterator &other) const {
+    return this->node != other.node;
+}
+
+template<typename T>
+typename RBTree<T>::Iterator RBTree<T>::begin() const {
+    return {RBTree<T>::min(this->root)};
+}
+
+template<typename T>
+typename RBTree<T>::Iterator RBTree<T>::end() const {
+    return {nullptr};
 }
 
 template<typename T>
@@ -360,11 +407,6 @@ typename RBTree<T>::Node *RBTree<T>::find(Node *node, const T value) {
     return RBTree::find(node->right, value);
 }
 
-template<typename T>
-typename RBTree<T>::Node *RBTree<T>::find(const T value) const {
-    return RBTree::find(this->root, value);
-}
-
 // Returns a pointer to a node in the subtree `node` with the maximal value
 template<typename T>
 typename RBTree<T>::Node *RBTree<T>::max(Node *node) {
@@ -442,15 +484,15 @@ int RBTree<T>::max_char_count(const Node *node) const {
     std::stringstream out;
     out << node->inf;
     return std::max(
-        static_cast<int>(out.str().length()),
+        static_cast<int>(out.str().size()),
         std::max(this->max_char_count(node->left), this->max_char_count(node->right))
     );
 }
 
 template<typename T>
 ostream &operator<<(ostream &out, const typename RBTree<T>::Node *node) {
-    const std::streamsize width = cout.width();
-    out << setw(0);
+    const std::streamsize width = out.width();
+    out.width(0);
     if (node == nullptr) {
         if (width > 0) {
             out << setw(width) << ' ';
@@ -488,10 +530,10 @@ ostream &operator<<(ostream &out, const RBTree<T> &tr) {
     width = (d + 1) * (offset >> 1);
     offset = 1;
     for (vector<const Node<T> *> &level : array) {
-        out << setw(width >> 1);
+        out.width(width >> 1);
         ::operator<< <T>(out, level[0]);
         for (int i = 1; i < offset; ++i) {
-            out << setw(width);
+            out.width(width);
             ::operator<< <T>(out, level[i]);
         }
         out << '\n';
