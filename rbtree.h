@@ -526,11 +526,11 @@ ostream &operator<<(ostream &out, const RBTree<T> &tr) {
     tr.make_array(array, tr.root);
 
     // Maximum number of digits in node
-    const int d = tr.max_char_count(tr.root);
-    width = (d + 1) * (offset >> 1);
+    const int max_chal_length = tr.max_char_count(tr.root);
+    width = (max_chal_length + 1) * (offset >> 1);
     offset = 1;
     for (vector<const Node<T> *> &level : array) {
-        out.width(std::max(width >> 1, d));
+        out.width(std::max(width >> 1, max_chal_length));
         ::operator<< <T>(out, level[0]);
         for (int i = 1; i < offset; ++i) {
             out.width(width);
