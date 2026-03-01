@@ -1,8 +1,8 @@
-# Red/black tree visualisation
+# Red/black tree set visualisation
 
 ## What is this?
 
-There is C++ class for red/black tree, that have method for **console output** for tree **without any specific libraries**. The program correctly outputs numbers **with any number of digits**.
+There is C++ class for red/black tree set, that have method for **console output** for tree **without any specific libraries**. The program correctly outputs all types, that can be output using the `<<` operator.
 
 ## What is it for?
 
