@@ -4,10 +4,11 @@
 
 int main() {
     using std::cin, std::cout;
-    RBTree tr;
+    RBTree<std::string> tr;
     cout << "Number of nodes: ";
-    int n, x;
+    int n;
     cin >> n;
+    std::string x;
     if (n > 0) {
         cout << "Nodes: ";
         for (int i = 0; i < n; i++) {

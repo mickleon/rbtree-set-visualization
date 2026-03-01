@@ -2,7 +2,7 @@ CXX := g++
 CXXFLAGS := -std=c++17 -O2 -Wall -Wextra -Wpedantic
 
 TARGET := main
-SRCS := main.cpp rbtree.cpp
+SRCS := main.cpp
 OBJS := $(SRCS:.cpp=.o)
 
 .PHONY: all debug clean

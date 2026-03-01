@@ -18,7 +18,7 @@ make
 or
 
 ```bash
-g++ main.cpp rbtree.cpp -o main
+g++ main.cpp -o main
 ./main
 ```
 
@@ -26,13 +26,13 @@ g++ main.cpp rbtree.cpp -o main
 
 The following methods are available for working with tree:
 
-- `void RBTree::insert(const int value)`: inserts node with value `value` to a tree and calls the fixup function.
-- `void RBTree::erase(const int value)`: erases the node with value `value` from tree and calls the fixup function.
-- `int RBTree::max() const`: returns maximum value in the tree.
-- `int RBTree::min() const`: returns minimum value in the tree.
-- `RBTree::Node *find(const int value) const`: returns a pointer to a node in the tree with the value `value`.
+- `void RBTree<T>::insert(const T value)`: inserts node with value `value` to a tree and calls the fixup function.
+- `void RBTree<T>::erase(const T value)`: erases the node with value `value` from tree and calls the fixup function.
+- `int RBTree<T>::max() const`: returns maximum value in the tree.
+- `int RBTree<T>::min() const`: returns minimum value in the tree.
+- `RBTree<T>::Node *find(const T value) const`: returns a pointer to a node in the tree with the value `value`.
 - `void RBTree::clear()`: erases all the nodes from the tree.
-- `ostream &operator<<(ostream &out, const RBTree &tr)`: outputs the tree to the ostream. If `RBTree::show_null_leaves` is `true` (`false` by default) it displays null leaves.
+- `ostream &operator<<(ostream &out, const RBTree<T> &tr)`: outputs the tree to the ostream. If `RBTree::show_null_leaves` is `true` (`false` by default) it displays null leaves.
 
 ## Example of output
 
