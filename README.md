@@ -24,15 +24,27 @@ g++ main.cpp -o main
 
 ## Available features
 
+`RBTree<T>` is a template class that supports all types, that are comparable and can be output using the `<<` operator.
+
+The class supports iteration, so the tree elements can be iterated through in a loop:
+
+```cpp
+RBTree<int> tr;
+for (int el : tr) {
+    cout << el << ' ';
+}
+```
+
 The following methods are available for working with tree:
 
 - `void RBTree<T>::insert(const T value)`: inserts node with value `value` to a tree and calls the fixup function.
 - `void RBTree<T>::erase(const T value)`: erases the node with value `value` from tree and calls the fixup function.
 - `int RBTree<T>::max() const`: returns maximum value in the tree.
 - `int RBTree<T>::min() const`: returns minimum value in the tree.
-- `RBTree<T>::Node *find(const T value) const`: returns a pointer to a node in the tree with the value `value`.
 - `void RBTree::clear()`: erases all the nodes from the tree.
 - `ostream &operator<<(ostream &out, const RBTree<T> &tr)`: outputs the tree to the ostream. If `RBTree::show_null_leaves` is `true` (`false` by default) it displays null leaves.
+- `Iterator RBTree<T>::begin() const`: returns an iterator to the element with the minimal value.
+- `Iterator RBTree<T>::end() const`: returns an iterator to the element which is after the element with the maximum value (`nullptr`).
 
 ## Example of output
 
@@ -41,3 +53,7 @@ The following methods are available for working with tree:
 With null leaves:
 
 ![Tree output with null leaves](/img/tree_output_null_leaves.png)
+
+With `std::string` nodes:
+
+![Output of a tree with string nodes](/img/tree_output_strings.png)
