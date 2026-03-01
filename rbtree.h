@@ -530,7 +530,7 @@ ostream &operator<<(ostream &out, const RBTree<T> &tr) {
     width = (d + 1) * (offset >> 1);
     offset = 1;
     for (vector<const Node<T> *> &level : array) {
-        out.width(width >> 1);
+        out.width(std::max(width >> 1, d));
         ::operator<< <T>(out, level[0]);
         for (int i = 1; i < offset; ++i) {
             out.width(width);
